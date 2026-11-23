@@ -1,0 +1,152 @@
+{
+  "image_size": [
+    224,
+    224
+  ],
+  "classes": [
+    {
+      "label": "1-Hay",
+      "character": "ح"
+    },
+    {
+      "label": "Ain",
+      "character": "ع"
+    },
+    {
+      "label": "Alif",
+      "character": "ا"
+    },
+    {
+      "label": "Bay",
+      "character": "ب"
+    },
+    {
+      "label": "Byeh",
+      "character": "ے"
+    },
+    {
+      "label": "Chay",
+      "character": "چ"
+    },
+    {
+      "label": "Cyeh",
+      "character": "ى"
+    },
+    {
+      "label": "Daal",
+      "character": "ڈ"
+    },
+    {
+      "label": "Dal",
+      "character": "د"
+    },
+    {
+      "label": "Dochahay",
+      "character": "ھ"
+    },
+    {
+      "label": "Fay",
+      "character": "ف"
+    },
+    {
+      "label": "Gaaf",
+      "character": "گ"
+    },
+    {
+      "label": "Ghain",
+      "character": "غ"
+    },
+    {
+      "label": "Hamza",
+      "character": "ء"
+    },
+    {
+      "label": "Kaf",
+      "character": "ق"
+    },
+    {
+      "label": "Khay",
+      "character": "خ"
+    },
+    {
+      "label": "Kiaf",
+      "character": "ک"
+    },
+    {
+      "label": "Lam",
+      "character": "ل"
+    },
+    {
+      "label": "Meem",
+      "character": "م"
+    },
+    {
+      "label": "Nuun",
+      "character": "ن"
+    },
+    {
+      "label": "Nuungh",
+      "character": "ں"
+    },
+    {
+      "label": "Pay",
+      "character": "پ"
+    },
+    {
+      "label": "Ray",
+      "character": "ر"
+    },
+    {
+      "label": "Say",
+      "character": "ث"
+    },
+    {
+      "label": "Seen",
+      "character": "س"
+    },
+    {
+      "label": "Sheen",
+      "character": "ش"
+    },
+    {
+      "label": "Suad",
+      "character": "ص"
+    },
+    {
+      "label": "Taay",
+      "character": "ٹ"
+    },
+    {
+      "label": "Tay",
+      "character": "ت"
+    },
+    {
+      "label": "Tuey",
+      "character": "ط"
+    },
+    {
+      "label": "Wao",
+      "character": "و"
+    },
+    {
+      "label": "Zaal",
+      "character": "ذ"
+    },
+    {
+      "label": "Zaey",
+      "character": "ژ"
+    },
+    {
+      "label": "Zay",
+      "character": "ز"
+    },
+    {
+      "label": "Zuad",
+      "character": "ض"
+    },
+    {
+      "label": "Zuey",
+      "character": "ظ"
+    }
+  ]
+}
