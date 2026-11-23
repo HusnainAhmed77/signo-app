@@ -1,0 +1,9 @@
+# Desktop companion UI and webcam support
+PySide6>=6.6,<7
+mediapipe==0.10.21
+Pillow>=10.2
+numpy==1.26.4
+
+# Matches the MobileNetV3-Small transfer checkpoint produced by the training notebook.
+torch==2.2.2
+torchvision==0.17.2
