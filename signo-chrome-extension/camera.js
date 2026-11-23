@@ -9,7 +9,7 @@ async function requestCamera() {
     stream.getTracks().forEach((track) => track.stop());
     statusEl.className = "ok";
     statusEl.textContent =
-      "Camera allowed. You can close this tab, focus a text box on any page, and open the Sign-O popup.";
+      "Camera allowed. You can close this tab, open any web page, click the Sign-O toolbar icon (or press Alt+Shift+S), click into a text box and start signing.";
   } catch (err) {
     statusEl.className = "err";
     statusEl.textContent =

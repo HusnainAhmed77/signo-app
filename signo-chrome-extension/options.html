@@ -3,170 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign-O Options</title>
+  <title>Sign-O Settings</title>
+  <link rel="stylesheet" href="sidepanel.css">
   <style>
-    :root {
-      --bg-color: #f5f2ec;
-      --text-color: #2a2a2a;
-      --accent-color: #d4af37;
-      --card-bg: #ffffff;
-      --border-color: #e0d4c4;
-      --warning-color: #e74c3c;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      padding: 20px;
-      min-width: 280px;
-      line-height: 1.4;
-    }
-
-    h2 {
-      margin: 0 0 16px 0;
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-color);
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .setting-group {
-      margin-bottom: 20px;
-    }
-
-    .setting-group:last-child {
-      margin-bottom: 0;
-    }
-
-    .label-text {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 6px;
-      color: #555;
-    }
-
-    .radio-group {
-      display: flex;
-      gap: 12px;
-      margin-top: 4px;
-    }
-
-    .radio-option {
-      flex: 1;
-      padding: 8px 12px;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .radio-option:hover {
-      border-color: var(--accent-color);
-      background: #fff8e7;
-    }
-
-    .radio-option.active {
-      background: var(--accent-color);
-      color: #2a2a2a;
-      border-color: var(--accent-color);
-    }
-
-    .dwell-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .dwell-row label {
-      flex: 1;
-      font-size: 13px;
-    }
-
-    .dwell-input {
-      flex: 1;
-      padding: 6px 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      font-size: 13px;
-      background: #fff;
-      width: 80px;
-    }
-
-    .btn-save {
-      width: 100%;
-      padding: 10px;
-      background: var(--accent-color);
-      color: #2a2a2a;
-      border: none;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: opacity 0.2s;
-    }
-
-    .btn-save:hover {
-      opacity: 0.9;
-    }
-
-    .btn-save:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .info-text {
-      font-size: 11px;
-      color: #666;
-      margin-top: 4px;
-    }
+    body { max-width: 620px; margin: 0 auto; padding: 32px 20px 48px; gap: 16px; font-size: 14px; }
+    h1 { font-size: 20px; }
+    .card { display: flex; flex-direction: column; gap: 14px; padding: 18px; }
+    .card h2 { margin: 0; font-size: 15px; }
+    .row { display: flex; flex-direction: column; gap: 6px; }
+    .row-inline { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    label.title { font-weight: 600; }
+    .help { margin: 0; font-size: 12px; color: var(--muted); }
+    .slider { display: flex; align-items: center; gap: 12px; }
+    .slider input { flex: 1; accent-color: var(--accent-strong); }
+    .slider output { min-width: 56px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+    .segmented { max-width: 420px; }
+    .segment { padding: 8px 6px; font-size: 13px; }
+    .switch { position: relative; width: 40px; height: 22px; flex: none; }
+    .switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .switch span { position: absolute; inset: 0; border-radius: 22px; background: var(--border); cursor: pointer; transition: background 0.15s; }
+    .switch span::before { content: ""; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px; border-radius: 50%; background: #fff; transition: transform 0.15s; }
+    .switch input:checked + span { background: var(--accent-strong); }
+    .switch input:checked + span::before { transform: translateX(18px); }
+    .switch input:focus-visible + span { outline: 2px solid var(--accent-strong); outline-offset: 2px; }
+    .warning { font-size: 12px; padding: 8px 10px; border-radius: 8px; background: var(--accent-soft); }
+    .actions { display: flex; justify-content: space-between; align-items: center; }
+    .toast { font-size: 12px; color: var(--success); opacity: 0; transition: opacity 0.2s; }
+    .toast.show { opacity: 1; }
   </style>
 </head>
 <body>
-  <h2>Sign-O Urdu Keyboard Settings</h2>
-
-  <div class="setting-group">
-    <label class="label-text">Confirmation Method</label>
-    <div class="radio-group" id="modeGroup">
-      <div class="radio-option active" data-mode="pinch">Pinch gesture</div>
-      <div class="radio-option" data-mode="mouse">Mouse click</div>
-      <div class="radio-option" data-mode="dwell">Dwell (auto-typing)</div>
+  <header class="header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">س</span>
+      <div>
+        <h1>Sign-O settings</h1>
+        <p class="subtitle">Changes save automatically.</p>
+      </div>
     </div>
-    <p class="info-text">Choose how characters are committed to text</p>
+    <span class="toast" id="toast" role="status">Saved</span>
+  </header>
+
+  <section class="card">
+    <h2>Typing</h2>
+    <div class="row">
+      <label class="title">Mode</label>
+      <div class="segmented" role="radiogroup" aria-label="Typing mode" id="modeGroup">
+        <button class="segment" role="radio" data-mode="auto">Hold to type</button>
+        <button class="segment" role="radio" data-mode="pinch">Pinch</button>
+        <button class="segment" role="radio" data-mode="mouse">Click</button>
+      </div>
+      <p class="help" id="modeHelp"></p>
+    </div>
+
+    <div class="row" id="holdRow">
+      <label class="title" for="holdTime">Hold time</label>
+      <div class="slider">
+        <input type="range" id="holdTime" min="500" max="3000" step="100">
+        <output id="holdTimeOut"></output>
+      </div>
+      <p class="help">How long a sign must stay steady before it is typed. After a letter is typed, change the sign or lower your hand to type it again.</p>
+    </div>
+
+    <div class="row">
+      <label class="title" for="minConfidence">Minimum confidence</label>
+      <div class="slider">
+        <input type="range" id="minConfidence" min="30" max="95" step="5">
+        <output id="minConfidenceOut"></output>
+      </div>
+      <p class="help">Higher values type fewer wrong letters but need a clearer sign.</p>
+    </div>
+
+    <div class="row" id="pinchRows">
+      <label class="title">Pinch hand</label>
+      <div class="segmented" role="radiogroup" aria-label="Pinch hand" id="handGroup" style="grid-template-columns: repeat(2, 1fr); max-width: 280px;">
+        <button class="segment" role="radio" data-hand="left">Left hand</button>
+        <button class="segment" role="radio" data-hand="right">Right hand</button>
+      </div>
+      <p class="help">Pinch with this hand to type. Sign with your other hand.</p>
+      <label class="title" for="pinchThreshold" style="margin-top: 6px;">Pinch sensitivity</label>
+      <div class="slider">
+        <input type="range" id="pinchThreshold" min="3" max="12" step="1">
+        <output id="pinchThresholdOut"></output>
+      </div>
+      <p class="help">Larger values detect a pinch with fingers further apart.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Feedback</h2>
+    <div class="row-inline">
+      <div class="row">
+        <label class="title" for="soundEnabled">Sound when a letter is typed</label>
+        <p class="help">A short, quiet click.</p>
+      </div>
+      <label class="switch"><input type="checkbox" id="soundEnabled"><span></span></label>
+    </div>
+    <div class="row-inline">
+      <div class="row">
+        <label class="title" for="showOverlay">Show letter badge on web pages</label>
+        <p class="help">A small badge in the corner of the page shows the current letter and hold progress.</p>
+      </div>
+      <label class="switch"><input type="checkbox" id="showOverlay"><span></span></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Compatibility</h2>
+    <div class="row-inline">
+      <div class="row">
+        <label class="title" for="universalTyping">Universal typing (recommended)</label>
+        <p class="help">Types like a real keyboard, so it works on every website, including Google Docs, online editors, chat apps and embedded frames. Turn off to use basic typing, which only works in ordinary text boxes.</p>
+      </div>
+      <label class="switch"><input type="checkbox" id="universalTyping"><span></span></label>
+    </div>
+    <p class="warning">Universal typing uses Chrome's built-in debugger to send keystrokes. While Sign-O types, Chrome shows a “Sign-O started debugging this browser” bar. That is expected and only means Sign-O can type into the page. No extension can type on chrome:// pages, the new-tab page or the Chrome Web Store.</p>
+  </section>
+
+  <section class="card">
+    <h2>Keyboard shortcut</h2>
+    <p class="help" id="shortcutText">Open Sign-O or pause / resume recognition.</p>
+    <div><button class="btn" id="shortcutBtn">Change shortcut</button></div>
+  </section>
+
+  <section class="card">
+    <h2>Camera</h2>
+    <p class="help">If the camera is blocked, grant access again.</p>
+    <div><button class="btn" id="cameraBtn">Camera permission</button></div>
+  </section>
+
+  <div class="actions">
+    <button class="btn" id="resetBtn">Reset to defaults</button>
   </div>
 
-  <div class="setting-group" id="dwellSettings" style="display: none;">
-    <label class="label-text">Dwell Time</label>
-    <div class="dwell-row">
-      <label>Auto-type after (ms):</label>
-      <input type="number" id="dwellTimeInput" class="dwell-input" min="500" max="3000" value="1500">
-      <span>ms (hold hand still)</span>
-    </div>
-    <p class="info-text">Time to hold hand steady before character types automatically</p>
-  </div>
-
-  <div class="setting-group">
-    <label class="label-text">Pinch (click) hand</label>
-    <div class="radio-group" id="handGroup">
-      <div class="radio-option active" data-hand="left">Left hand</div>
-      <div class="radio-option" data-hand="right">Right hand</div>
-    </div>
-    <p class="info-text">The hand that pinches to type in Pinch mode. Sign with your other hand.</p>
-  </div>
-
-  <button class="btn-save" id="saveBtn">Save Settings</button>
-  
-  <p class="info-text" style="margin-top: 20px; font-size: 12; color: #888;">
-    Changes are saved instantly and applied across browser sessions
-  </p>
-  
-  <script src="options.js"></script>
+  <script type="module" src="options.js"></script>
 </body>
 </html>

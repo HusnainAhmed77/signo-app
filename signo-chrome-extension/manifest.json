@@ -1,23 +1,37 @@
 {
   "manifest_version": 3,
   "name": "Sign-O Urdu Keyboard",
-  "version": "0.2.0",
-  "description": "Type Urdu via Pakistan Sign Language hand gestures in browser",
+  "version": "0.4.0",
+  "description": "Type Urdu on any website with Pakistan Sign Language handshapes",
+  "minimum_chrome_version": "116",
   "permissions": [
     "activeTab",
     "scripting",
     "tabs",
-    "storage"
+    "storage",
+    "sidePanel",
+    "debugger"
   ],
   "host_permissions": [
     "<all_urls>"
   ],
   "action": {
-    "default_popup": "popup.html",
+    "default_title": "Open Sign-O",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "commands": {
+    "toggle-recognition": {
+      "suggested_key": {
+        "default": "Alt+Shift+S"
+      },
+      "description": "Open Sign-O, or pause / resume sign recognition"
     }
   },
   "options_ui": {
@@ -31,7 +45,8 @@
     }
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "icons": {
     "16": "icons/icon16.png",

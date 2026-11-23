@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign-O Urdu Keyboard</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">س</span>
+      <div>
+        <h1>Sign-O</h1>
+        <p class="subtitle">Urdu sign keyboard</p>
+      </div>
+    </div>
+    <button class="icon-btn" id="pauseBtn" title="Pause or resume (Alt+Shift+S)" disabled>Pause</button>
+  </header>
+
+  <div class="segmented" role="radiogroup" aria-label="Typing mode">
+    <button class="segment" role="radio" data-mode="auto">Hold to type</button>
+    <button class="segment" role="radio" data-mode="pinch">Pinch</button>
+    <button class="segment" role="radio" data-mode="mouse">Click</button>
+  </div>
+  <p class="mode-hint" id="modeHint"></p>
+
+  <section class="camera" aria-label="Camera">
+    <video id="cameraFeed" autoplay muted playsinline></video>
+    <canvas id="landmarksOverlay"></canvas>
+    <div class="camera-message" id="cameraMessage">Loading models…</div>
+  </section>
+  <button class="btn btn-primary hidden" id="cameraPermissionBtn">Allow camera access</button>
+
+  <section class="card prediction" aria-live="polite">
+    <div class="ring-wrap">
+      <svg class="ring" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="ring-track" cx="50" cy="50" r="44"></circle>
+        <circle class="ring-progress" id="ringProgress" cx="50" cy="50" r="44"></circle>
+      </svg>
+      <span class="letter" id="predictionLetter" dir="rtl">—</span>
+    </div>
+    <div class="prediction-info">
+      <div class="prediction-label" id="predictionLabel">No hand</div>
+      <div class="confidence">
+        <div class="confidence-bar"><div class="confidence-fill" id="confidenceFill"></div></div>
+        <span id="confidenceText">0%</span>
+      </div>
+      <div class="phase" id="phaseText">Show one hand to the camera.</div>
+    </div>
+  </section>
+  <ol class="top3" id="top3" aria-label="Top predictions"></ol>
+
+  <section class="controls">
+    <button class="btn btn-primary wide" id="typeBtn" disabled>Type letter</button>
+    <button class="btn" id="spaceBtn">Space</button>
+    <button class="btn" id="backspaceBtn">⌫ Backspace</button>
+    <button class="btn" id="undoBtn" disabled>↶ Undo</button>
+    <button class="btn btn-danger" id="clearBtn">Clear field</button>
+  </section>
+
+  <div class="status" id="statusText" role="status">Starting…</div>
+
+  <footer class="footer">
+    <span><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> pause / resume</span>
+    <button class="link-btn" id="settingsBtn">Settings</button>
+  </footer>
+
+  <script src="lib/onnxruntime/ort.wasm.min.js"></script>
+  <script type="module" src="sidepanel.js"></script>
+</body>
+</html>
